@@ -27,6 +27,15 @@ class ExpenseService {
     this.transactions = this.transactions.filter(transaction => transaction.id !== id);
   }
 
+  editTransaction(id, newText, newAmount) {
+    const expense = this.transactions.find(transaction => transaction.id === id);
+    if (expense && newText) {
+      expense.text = newText;
+    } 
+
+    console.log(newAmount);
+  }
+
   getAllExpenses() {
     return this.transactions;
   }

@@ -24,10 +24,8 @@
       item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
 
       item.innerHTML = `
-        ${transaction.text} <span>${sign}${Math.abs(
-        transaction.amount
-      )}</span> <button class="delete-btn" data-id="${transaction.id}" onclick="removeTransaction(${transaction.id})">x</button>`;
-
+        <span class="editable" id="edit-text" contentEditable="true" data-id="${
+          transaction.id}">${transaction.text}</span> <span class="editable" id="edit-amount" contentEditable="true">${sign}${Math.abs(transaction.amount)}</span> <button class="delete-btn" data-id="${transaction.id}">x</button>`;
       list.appendChild(item);
     });
   }
@@ -54,6 +52,19 @@
        
         handler(expenseId);
        } 
+    });
+  }
+
+  bindEditExpense(handler) {
+    this.list.addEventListener('focusout', event => {
+      event.preventDefault();
+
+       if (event.target.classList.contains('editable') && event.target.id == 'edit-text' ) { 
+          const expenseId = parseInt(event.target.dataset.id);
+          const newText = event.target.innerHTML
+          handler(expenseId, newText); 
+       } 
+ 
     });
   }
 
