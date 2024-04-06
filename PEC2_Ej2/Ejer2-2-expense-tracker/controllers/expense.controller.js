@@ -13,6 +13,7 @@
     this.view = view;
 
     this.view.bindAddExpense(this.handleAddExpense.bind(this));
+    this.view.bindDeleteExpense(this.handleDeleteExpense.bind(this));
     this.addTransactionDOM();
   }
 
@@ -26,6 +27,11 @@
     this.service.addExpense(text, amount);
     this.addTransactionDOM();
     this.service._commit(this.service.transactions); 
+  }
+  handleDeleteExpense(expenseId) {
+    this.service.removeTransaction(expenseId);
+    this.service._commit(this.service.transactions); 
+    this.addTransactionDOM();
   }
 
   updateValues() {

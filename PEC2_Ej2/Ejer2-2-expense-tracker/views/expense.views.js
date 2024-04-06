@@ -26,10 +26,7 @@
       item.innerHTML = `
         ${transaction.text} <span>${sign}${Math.abs(
         transaction.amount
-      )}</span> <button class="delete-btn" onclick="removeTransaction(${
-        transaction.id
-      })">x</button>
-      `;
+      )}</span> <button class="delete-btn" data-id="${transaction.id}" onclick="removeTransaction(${transaction.id})">x</button>`;
 
       list.appendChild(item);
     });
@@ -49,9 +46,25 @@
     });
   }
 
+  bindDeleteExpense(handler) {
+    this.list.addEventListener('click', event => {
+      event.preventDefault();
+       if (event.target.classList.contains('delete-btn')) { 
+        const expenseId = parseInt(event.target.dataset.id);
+       
+        handler(expenseId);
+       } 
+    });
+  }
+
   updateValues(total, income, expense) {
     this.balance.innerText = `$${total}`;
     this.money_plus.innerText = `$${income}`;
     this.money_minus.innerText = `$${expense}`;
+  }
+
+  resetInputs() {
+    this.text.value = '';
+    this.amount.value = '';
   }
 }

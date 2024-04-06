@@ -23,6 +23,10 @@ class ExpenseService {
     this.transactions.push(new Transaction(expense));
   }
 
+  removeTransaction(id) {
+    this.transactions = this.transactions.filter(transaction => transaction.id !== id);
+  }
+
   getAllExpenses() {
     return this.transactions;
   }
