@@ -29,11 +29,13 @@ class ExpenseService {
 
   editTransaction(id, newText, newAmount) {
     const expense = this.transactions.find(transaction => transaction.id === id);
-    if (expense && newText) {
-      expense.text = newText;
-    } 
-
-    console.log(newAmount);
+    
+    if (isNaN(newAmount)) {
+      expense.amount
+    } else {
+      expense.amount = newAmount;
+    }
+    expense.text = newText;
   }
 
   getAllExpenses() {

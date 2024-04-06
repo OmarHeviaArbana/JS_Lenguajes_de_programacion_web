@@ -34,12 +34,13 @@
     this.addTransactionDOM();
     this.service._commit(this.service.transactions); 
   }
-  
+
   handleEditExpense(expenseId, newText, newAmount) {
     this.service.editTransaction(expenseId, newText, newAmount);
     this.addTransactionDOM();
     this.service._commit(this.service.transactions); 
   }
+  
   updateValues() {
     const expenses = this.service.getAllExpenses();
     const amounts = expenses.map(transaction => transaction.amount);

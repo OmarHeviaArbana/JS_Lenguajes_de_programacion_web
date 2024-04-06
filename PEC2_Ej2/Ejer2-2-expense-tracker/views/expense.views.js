@@ -25,7 +25,7 @@
 
       item.innerHTML = `
         <span class="editable" id="edit-text" contentEditable="true" data-id="${
-          transaction.id}">${transaction.text}</span> <span class="editable" id="edit-amount" contentEditable="true">${sign}${Math.abs(transaction.amount)}</span> <button class="delete-btn" data-id="${transaction.id}">x</button>`;
+          transaction.id}">${transaction.text}</span> <span class="editable" id="edit-amount" contentEditable="true" data-id="${transaction.id}">${sign}${Math.abs(transaction.amount)}</span> <button class="delete-btn" data-id="${transaction.id} ">x</button>`;
       list.appendChild(item);
     });
   }
@@ -58,13 +58,28 @@
   bindEditExpense(handler) {
     this.list.addEventListener('focusout', event => {
       event.preventDefault();
+      if (event.target.classList.contains('editable') && event.target.id == 'edit-text' ) { 
 
-       if (event.target.classList.contains('editable') && event.target.id == 'edit-text' ) { 
-          const expenseId = parseInt(event.target.dataset.id);
-          const newText = event.target.innerHTML
-          handler(expenseId, newText); 
-       } 
- 
+        const expenseId = parseInt(event.target.dataset.id);
+        const newText = event.target.textContent
+        const amount = document.getElementById('edit-amount');
+         
+        if (newText !== '') {
+          handler(expenseId, newText, parseInt(amount.textContent)); 
+        }
+      } 
+      if (event.target.classList.contains('editable') && event.target.id == 'edit-amount' ) { 
+        
+
+        const expenseId = parseInt(event.target.dataset.id);
+        const newAmount= parseFloat(event.target.textContent)
+        const text = document.getElementById('edit-text');
+        console.log(typeof newAmount);
+
+        if (newAmount !== '') {
+          handler(expenseId, text.textContent, newAmount); 
+        } 
+      } 
     });
   }
 
