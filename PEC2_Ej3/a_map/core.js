@@ -20,7 +20,7 @@ function onlyVowels(array) {
 }
 
 function doubleMatrix(array) {
-  return array.map(indexArrayElement => indexArrayElement.map(number => number * 2));
+  return array.map(arrayRow => arrayRow.map(number => number * 2));
 }
 
 module.exports = {
