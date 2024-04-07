@@ -1,17 +1,26 @@
 function multiplyBy10(array) {
-  // your code here
+  return array.map(number => number * 10);
 }
 
 function shiftRight(array) {
-  // your code here
+  if (array.length > 2) {
+    const lastArrayElement = array.pop(); 
+    array.unshift(lastArrayElement); 
+    return array;
+  } else {
+    return array;
+  }
 }
 
 function onlyVowels(array) {
-  // your code here
+  const vowels = ['a', 'e', 'i', 'o', 'u']; 
+  return array.map(word =>
+    word.split('').filter(char => vowels.includes(char.toLowerCase())).join('')
+  );
 }
 
 function doubleMatrix(array) {
-  // your code here
+  return array.map(indexArrayElement => indexArrayElement.map(number => number * 2));
 }
 
 module.exports = {
