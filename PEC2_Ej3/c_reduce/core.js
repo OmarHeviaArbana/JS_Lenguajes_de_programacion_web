@@ -1,17 +1,27 @@
 function sum(array) {
-  // your code here
+  return array.reduce((totalValues, currentValue) => totalValues + currentValue, 0);
 }
 
 function productAll(array) {
-  // your code here
+  return array.reduce((accumulate, subArray) => {
+    const productOfSubArray = subArray.reduce((totalSub, number) => totalSub * number, 1);
+    return accumulate * productOfSubArray;
+  }, 1); 
 }
 
 function objectify(array) {
-  // your code here
+  const initialObj= {}
+  return array.reduce((obj, item) => { 
+    obj[item[0]] = item[1];
+    return obj;
+  }, initialObj);
 }
 
 function luckyNumbers(array) {
-  // your code here
+  const luckyString = array.join(", ");
+  const lastIndex = luckyString.lastIndexOf(",");
+  const result = luckyString.substring(0, lastIndex + 1) + " and" + luckyString.substring(lastIndex + 1);
+  return "Your lucky numbers are: " + result;
 }
 
 module.exports = {
