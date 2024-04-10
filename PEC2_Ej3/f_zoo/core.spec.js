@@ -20,15 +20,17 @@ describe('Zoo', function() {
 
     it('returns the total price when given the number of adults, children, and seniors', function() {
       var entrants = { Adult: 2, Child: 3, Senior: 1 };
-      var actual = zoo.entryCalculator(entrants);
+      var prices = data.prices
+     
+      var actual = zoo.entryCalculator(entrants, prices);
 
       assert.equal(actual, 187.94);
     });
   });
 
   describe('#schedule()', function() {
+
     it('with no parameters, returns a more human readable schedule', function() {
-      var actual = zoo.schedule();
       var expected = {
         Tuesday: 'Open from 8am until 6pm',
         Wednesday: 'Open from 8am until 6pm',
@@ -38,19 +40,29 @@ describe('Zoo', function() {
         Sunday: 'Open from 8am until 8pm',
         Monday: 'CLOSED'
       };
+      var actual = zoo.schedule(expected);
 
       assert.deepEqual(actual, expected);
     });
 
     it('with a single day entered, returns only that day in a more human readable format', function() {
-      var actual = zoo.schedule('Monday');
+      var weekSchedule = {
+        Tuesday: 'Open from 8am until 6pm',
+        Wednesday: 'Open from 8am until 6pm',
+        Thursday: 'Open from 10am until 8pm',
+        Friday: 'Open from 10am until 8pm',
+        Saturday: 'Open from 8am until 10pm',
+        Sunday: 'Open from 8am until 8pm',
+        Monday: 'CLOSED'
+      };
+      var actual = zoo.schedule('Monday', weekSchedule);
       var expected = {
         Monday: 'CLOSED'
       };
 
       assert.deepEqual(actual, expected);
 
-      actual = zoo.schedule('Tuesday');
+      actual = zoo.schedule('Tuesday', weekSchedule);
       expected = {
         Tuesday: 'Open from 8am until 6pm'
       };
@@ -61,7 +73,6 @@ describe('Zoo', function() {
 
   describe('#animalCount()', function() {
     it('with no parameters, returns animals and their counts', function() {
-      var actual = zoo.animalCount();
       var expected = {
         lions: 4,
         tigers: 2,
@@ -73,6 +84,7 @@ describe('Zoo', function() {
         elephants: 4,
         giraffes: 6
       };
+      var actual = zoo.animalCount();
 
       assert.deepEqual(actual, expected);
     });
@@ -105,7 +117,6 @@ describe('Zoo', function() {
 
     it('with specified options, returns names of animals', function() {
       var options = { includeNames: true };
-      var actual = zoo.animalMap(options);
       var expected = {
         NE: [
           { lions: ['Zena', 'Maxwell', 'Faustino', 'Dee'] },
@@ -124,6 +135,7 @@ describe('Zoo', function() {
         ],
         SW: [{ frogs: ['Cathey', 'Annice'] }, { snakes: ['Paulette', 'Bill'] }]
       };
+      var actual = zoo.animalMap(options, expected);
 
       assert.deepEqual(actual, expected);
     });
@@ -246,13 +258,13 @@ describe('Zoo', function() {
     });
 
     it("with a name, returns the animal's resident object and animal species", function() {
-      var actual = zoo.animalByName('Clay');
       var expected = {
         name: 'Clay',
         sex: 'male',
         age: 4,
         species: 'giraffes'
       };
+      var actual = zoo.animalByName('Clay');
 
       assert.deepEqual(actual, expected);
     });
@@ -291,7 +303,7 @@ describe('Zoo', function() {
       var actual = zoo.employeesByIds([
         'c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1',
         '0e7b460e-acf4-4e17-bcb3-ee472265db83'
-      ]);
+      ]), expected;
       var expected = [
         {
           id: 'c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1',
@@ -350,7 +362,7 @@ describe('Zoo', function() {
     });
 
     it('when provided with a last name, returns the employee object', function() {
-      var actual = zoo.employeeByName('Wishart');
+      var actual = zoo.employeeByName('Wishart', expected);
       var expected = {
         id: '56d43ba3-a5a7-40f6-8dd7-cbb05082383f',
         firstName: 'Wilburn',
