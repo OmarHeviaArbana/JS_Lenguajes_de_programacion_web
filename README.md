@@ -12,4 +12,6 @@ ohevia@uoc.edu
 
 Omar Hevia Arbana
 
-## Descripción
+## Comentarios
+
+En el ejercicio PEC2_Ej3 y concretamente para el ejercicio f_zoo he utilizado el archivo data en el core.js para proveerme de los datos que no me pasaba la función del test. Me quedo con la duda si este hecho está permitido, pero no sabía como obtener la data sin manipular en exceso o implementar la data en en el archivo de test.
